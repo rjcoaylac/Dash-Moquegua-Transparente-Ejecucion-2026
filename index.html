@@ -30,7 +30,7 @@ header{
 }
 .hdr-top{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;flex-wrap:wrap;gap:10px}
 .hdr-brand{display:flex;align-items:center;gap:14px}
-.escudo-wrap{width:58px;height:68px;flex-shrink:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+.escudo-wrap{width:58px;height:72px;flex-shrink:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
 .hdr-txt .sup{font-size:9px;letter-spacing:2px;text-transform:uppercase;opacity:.68;font-weight:500}
 .hdr-txt .tit{
   font-family:'Syne',sans-serif;
@@ -296,38 +296,115 @@ footer b{color:var(--dor)}
 <header>
   <div class="hdr-top">
     <div class="hdr-brand">
-      <!-- Escudo GR Moquegua (SVG fiel) -->
+      <!-- Escudo oficial Moquegua -->
       <div class="escudo-wrap">
-        <svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
-          <defs><clipPath id="sc"><path d="M100 6 L190 6 L190 135 Q190 198 100 222 Q10 198 10 135 L10 6 Z"/></clipPath></defs>
-          <!-- fondo -->
-          <path d="M100 6 L190 6 L190 135 Q190 198 100 222 Q10 198 10 135 L10 6 Z" fill="#FFFFFF" stroke="#1A4A9E" stroke-width="4"/>
-          <!-- cielo azul superior -->
-          <rect x="10" y="6" width="180" height="80" fill="#C8E0FF" clip-path="url(#sc)"/>
-          <!-- sol -->
-          <circle cx="100" cy="45" r="28" fill="#F5A623" clip-path="url(#sc)"/>
-          <!-- montañas -->
-          <polygon points="10,110 50,60 80,85 100,55 130,80 165,50 190,110" fill="#2E5BA8" clip-path="url(#sc)"/>
-          <polygon points="10,115 55,72 85,92 100,65 130,87 160,60 190,115" fill="#4A7FD4" opacity=".7" clip-path="url(#sc)"/>
-          <!-- tierra agrícola -->
-          <rect x="10" y="110" width="90" height="112" fill="#6AAF4A" clip-path="url(#sc)"/>
-          <rect x="10" y="122" width="90" height="7" fill="#4E8A32" opacity=".5" clip-path="url(#sc)"/>
-          <rect x="10" y="136" width="90" height="7" fill="#4E8A32" opacity=".5" clip-path="url(#sc)"/>
-          <rect x="10" y="150" width="90" height="7" fill="#4E8A32" opacity=".5" clip-path="url(#sc)"/>
-          <!-- agua / lago azul -->
-          <rect x="100" y="110" width="90" height="112" fill="#5BACD6" clip-path="url(#sc)"/>
-          <ellipse cx="145" cy="155" rx="32" ry="18" fill="#7DCCEE" clip-path="url(#sc)"/>
-          <ellipse cx="145" cy="155" rx="24" ry="12" fill="#A8E4F8" opacity=".7" clip-path="url(#sc)"/>
-          <!-- línea divisoria vertical -->
-          <line x1="100" y1="110" x2="100" y2="222" stroke="#1A4A9E" stroke-width="1.5"/>
-          <!-- línea divisoria horizontal -->
-          <line x1="10" y1="110" x2="190" y2="110" stroke="#1A4A9E" stroke-width="2"/>
-          <!-- cóndor estilizado -->
-          <path d="M70,88 Q80,78 100,72 Q120,78 130,88 Q115,82 100,80 Q85,82 70,88 Z" fill="#1A3060" opacity=".8" clip-path="url(#sc)"/>
-          <!-- borde escudo -->
-          <path d="M100 6 L190 6 L190 135 Q190 198 100 222 Q10 198 10 135 L10 6 Z" fill="none" stroke="#1A4A9E" stroke-width="4"/>
-          <!-- franja dorada superior -->
-          <rect x="10" y="6" width="180" height="14" fill="#C8A84B" opacity=".9" clip-path="url(#sc)"/>
+        <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif">
+          <defs>
+            <clipPath id="innerClip">
+              <rect x="38" y="72" width="124" height="118"/>
+            </clipPath>
+          </defs>
+
+          <!-- ══ CÓNDOR ══ -->
+          <!-- Alas izquierda -->
+          <path d="M28,32 Q10,18 2,28 Q14,30 22,42 Q26,36 28,32Z" fill="#111"/>
+          <path d="M28,32 Q18,22 8,24 Q16,28 24,38Z" fill="#333"/>
+          <!-- Alas derecha -->
+          <path d="M172,32 Q190,18 198,28 Q186,30 178,42 Q174,36 172,32Z" fill="#111"/>
+          <path d="M172,32 Q182,22 192,24 Q184,28 176,38Z" fill="#333"/>
+          <!-- Cuerpo cóndor -->
+          <ellipse cx="100" cy="38" rx="18" ry="12" fill="#222"/>
+          <!-- Cabeza -->
+          <circle cx="100" cy="24" r="8" fill="#eee"/>
+          <!-- Cresta roja -->
+          <path d="M96,18 Q100,10 104,18 Q100,16 96,18Z" fill="#CC2200"/>
+          <!-- Pico -->
+          <path d="M100,28 L96,32 L104,32Z" fill="#C8A84B"/>
+          <!-- Cuello colorido -->
+          <path d="M93,26 Q100,30 107,26 Q100,22 93,26Z" fill="#fff"/>
+
+          <!-- ══ BANNER 1541 ══ -->
+          <!-- Faja tricolor -->
+          <rect x="55" y="44" width="90" height="6" fill="#009900" rx="2"/>
+          <rect x="55" y="50" width="90" height="6" fill="#CC0000" rx="2"/>
+          <rect x="55" y="56" width="90" height="6" fill="#003399" rx="2"/>
+          <!-- Banner blanco encima -->
+          <rect x="62" y="46" width="76" height="18" rx="3" fill="#CC0000"/>
+          <text x="100" y="59" text-anchor="middle" font-size="11" font-weight="bold" fill="white">1541</text>
+
+          <!-- ══ MARCO DORADO ══ -->
+          <rect x="28" y="65" width="144" height="132" rx="3" fill="#F5C800" stroke="#C8900A" stroke-width="2"/>
+          <!-- Texto BENEMÉRITA -->
+          <text x="100" y="78" text-anchor="middle" font-size="9" font-weight="bold" fill="#000">BENEMÉRITA</text>
+          <!-- Texto NOBLE CIUDAD vertical izquierda -->
+          <text x="38" y="130" text-anchor="middle" font-size="7.5" font-weight="bold" fill="#000" transform="rotate(-90,38,130)">NOBLE CIUDAD</text>
+          <!-- Texto A LA PATRIA vertical derecha -->
+          <text x="162" y="130" text-anchor="middle" font-size="7.5" font-weight="bold" fill="#000" transform="rotate(90,162,130)">A LA PATRIA</text>
+          <!-- Texto MOQUEGUA abajo -->
+          <text x="100" y="191" text-anchor="middle" font-size="9" font-weight="bold" fill="#000">MOQUEGUA</text>
+
+          <!-- ══ ESCUDO INTERIOR (rectángulo) ══ -->
+          <rect x="42" y="82" width="116" height="100" fill="#1a1aaa" stroke="#888" stroke-width="1"/>
+
+          <!-- Triángulo izquierdo (azul oscuro) – pesca -->
+          <polygon points="42,82 100,140 42,182" fill="#22229A" clip-path="url(#innerClip)"/>
+          <!-- Triángulo derecho (rojo) – minería -->
+          <polygon points="158,82 100,140 158,182" fill="#CC1111" clip-path="url(#innerClip)"/>
+          <!-- Triángulo superior (celeste) – cielo/montaña -->
+          <polygon points="42,82 158,82 100,140" fill="#5599DD" clip-path="url(#innerClip)"/>
+          <!-- Triángulo inferior (verde) – hoja de coca -->
+          <polygon points="42,182 158,182 100,140" fill="#228811" clip-path="url(#innerClip)"/>
+
+          <!-- Sol (triángulo superior) -->
+          <circle cx="100" cy="100" r="10" fill="#F5C800"/>
+          <g stroke="#F5C800" stroke-width="1.5" stroke-linecap="round">
+            <line x1="100" y1="87" x2="100" y2="84"/>
+            <line x1="100" y1="113" x2="100" y2="116"/>
+            <line x1="87" y1="100" x2="84" y2="100"/>
+            <line x1="113" y1="100" x2="116" y2="100"/>
+            <line x1="91" y1="91" x2="89" y2="89"/>
+            <line x1="109" y1="109" x2="111" y2="111"/>
+            <line x1="109" y1="91" x2="111" y2="89"/>
+            <line x1="91" y1="109" x2="89" y2="111"/>
+          </g>
+          <!-- Montaña (El Baúl) -->
+          <polygon points="80,138 100,118 120,138" fill="#6B3A1F"/>
+          <polygon points="83,138 100,122 117,138" fill="#8B5A2F"/>
+
+          <!-- Barca (izquierdo) -->
+          <path d="M54,162 Q58,158 62,162Z" fill="white"/>
+          <line x1="58" y1="155" x2="58" y2="162" stroke="white" stroke-width="1"/>
+          <path d="M52,164 Q58,168 64,164" fill="none" stroke="white" stroke-width="1.5"/>
+          <!-- Peces -->
+          <ellipse cx="54" cy="172" rx="4" ry="2" fill="white" opacity=".7"/>
+          <ellipse cx="62" cy="176" rx="4" ry="2" fill="white" opacity=".7"/>
+
+          <!-- Hoja de coca (inferior verde) -->
+          <ellipse cx="100" cy="168" rx="8" ry="11" fill="#33AA22" transform="rotate(-10,100,168)"/>
+          <line x1="100" y1="157" x2="100" y2="179" stroke="#228811" stroke-width="1"/>
+
+          <!-- Casco minero y pico (derecho rojo) -->
+          <path d="M128,150 Q138,144 145,150 Q138,155 128,150Z" fill="#F5C800"/>
+          <rect x="133" y="148" width="10" height="4" rx="2" fill="#C8900A"/>
+          <!-- Pico -->
+          <line x1="130" y1="162" x2="145" y2="155" stroke="#553300" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="130" y1="162" x2="140" y2="170" stroke="#553300" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- ══ RAMAS DE OLIVO ══ -->
+          <!-- Rama izquierda -->
+          <path d="M28,185 Q18,160 22,140 Q26,155 28,185Z" fill="none" stroke="#336600" stroke-width="1.5"/>
+          <ellipse cx="22" cy="148" rx="4" ry="2.5" fill="#448800" transform="rotate(-30,22,148)"/>
+          <ellipse cx="20" cy="158" rx="4" ry="2.5" fill="#448800" transform="rotate(-20,20,158)"/>
+          <ellipse cx="20" cy="168" rx="4" ry="2.5" fill="#448800" transform="rotate(-10,20,168)"/>
+          <ellipse cx="22" cy="178" rx="4" ry="2.5" fill="#448800" transform="rotate(5,22,178)"/>
+          <!-- Rama derecha -->
+          <path d="M172,185 Q182,160 178,140 Q174,155 172,185Z" fill="none" stroke="#336600" stroke-width="1.5"/>
+          <ellipse cx="178" cy="148" rx="4" ry="2.5" fill="#448800" transform="rotate(30,178,148)"/>
+          <ellipse cx="180" cy="158" rx="4" ry="2.5" fill="#448800" transform="rotate(20,180,158)"/>
+          <ellipse cx="180" cy="168" rx="4" ry="2.5" fill="#448800" transform="rotate(10,180,168)"/>
+          <ellipse cx="178" cy="178" rx="4" ry="2.5" fill="#448800" transform="rotate(-5,178,178)"/>
+          <!-- Nudo ramas abajo -->
+          <path d="M72,205 Q100,215 128,205" fill="none" stroke="#336600" stroke-width="2"/>
         </svg>
       </div>
       <div class="hdr-txt">
@@ -835,7 +912,6 @@ const D = {
 
 <!-- ══════════ SCRIPT ══════════ -->
 <script>
-Chart.register(ChartDataLabels);
 
 // PALETA
 const AZ1='#0D2B5E',AZ2='#1A4A9E',AZ3='#2E6FD4',AZP='#E8F0FB';
@@ -924,6 +1000,7 @@ const mkGauge=(id,val)=>{
 };
 
 document.addEventListener('DOMContentLoaded',()=>{
+  Chart.register(ChartDataLabels);
 
   // KPI
   const t=D.total;
