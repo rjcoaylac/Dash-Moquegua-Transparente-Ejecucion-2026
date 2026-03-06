@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Moquegua Transparente – Ejecución Presupuestal 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root{
+  --az1:#0D2B5E;--az2:#1A4A9E;--az3:#2E6FD4;--az-pal:#E8F0FB;
+  --dor:#C8A84B;--dor-c:#F5E6B8;--dor-o:#9A7A28;
+  --blanco:#FFFFFF;--bg:#EEF2FA;--gris:#D0DAF0;
+  --gtxt:#5A6880;--txt:#0D1B3E;
+  --sem-r:#E53E3E;--sem-a:#D97706;--sem-v:#16A34A;
+  --sombra:0 2px 18px rgba(13,43,94,.10);
+  --shov:0 6px 30px rgba(13,43,94,.18);--r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;font-size:14px;line-height:1.5}
+
+/* ═══ HEADER ═══ */
+header{
+  background:linear-gradient(135deg,#071A3E 0%,#0D2B5E 50%,#1A4A9E 100%);
+  color:#fff;position:sticky;top:0;z-index:200;
+  box-shadow:0 4px 28px rgba(0,0,0,.35);
+}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;flex-wrap:wrap;gap:10px}
+.hdr-brand{display:flex;align-items:center;gap:14px}
+.escudo-wrap{width:58px;height:68px;flex-shrink:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+.hdr-txt .sup{font-size:9px;letter-spacing:2px;text-transform:uppercase;opacity:.68;font-weight:500}
+.hdr-txt .tit{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(14px,2.2vw,21px);font-weight:800;
+  color:var(--dor-c);line-height:1.1;letter-spacing:.2px;
+}
+.hdr-txt .sub{font-size:10.5px;opacity:.65;margin-top:1px}
+.hdr-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hdr-chip{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+  padding:4px 13px;border-radius:20px;font-size:11px;font-weight:500
+}
+
+/* MODO TOGGLE */
+.modo-toggle{
+  display:flex;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:24px;overflow:hidden;
+}
+.modo-btn{
+  padding:5px 16px;font-size:11px;font-weight:700;cursor:pointer;
+  background:transparent;border:none;color:rgba(255,255,255,.55);
+  transition:all .2s;font-family:'DM Sans',sans-serif;letter-spacing:.4px;
+  white-space:nowrap;
+}
+.modo-btn.active{background:var(--dor);color:#0D1B3E}
+.modo-btn i{margin-right:5px}
+
+/* DARK MODE */
+.btn-dark{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#fff;padding:5px 13px;border-radius:20px;font-size:11px;cursor:pointer;
+  transition:background .2s;font-family:'DM Sans',sans-serif;
+}
+.btn-dark:hover{background:rgba(255,255,255,.22)}
+
+/* TABS */
+.tabs-bar{display:flex;gap:2px;padding:0 24px;border-top:1px solid rgba(255,255,255,.1);overflow-x:auto;scrollbar-width:none}
+.tabs-bar::-webkit-scrollbar{display:none}
+.tab-btn{
+  font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.8px;
+  text-transform:uppercase;padding:9px 22px;border:none;cursor:pointer;
+  background:transparent;color:rgba(255,255,255,.5);
+  border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;
+}
+.tab-btn:hover{color:rgba(255,255,255,.85)}
+.tab-btn.active{color:var(--dor-c);border-bottom-color:var(--dor);background:rgba(255,255,255,.06)}
+.tab-btn i{margin-right:6px}
+
+/* ═══ MAIN ═══ */
+main{padding:20px 20px 50px;max-width:1700px;margin:0 auto}
+
+/* ═══ KPI GRID ═══ */
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px}
+.kpi-card{
+  background:var(--blanco);border-radius:var(--r);
+  padding:14px 10px;text-align:center;
+  box-shadow:var(--sombra);border-top:4px solid var(--dor);
+  transition:transform .2s,box-shadow .2s;
+}
+.kpi-card:hover{transform:translateY(-3px);box-shadow:var(--shov)}
+.kpi-card.hl{border-top-color:var(--az2)}
+.kpi-val{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(12px,1.4vw,17px);font-weight:800;
+  color:var(--az1);line-height:1.1;
+}
+.kpi-card.hl .kpi-val{color:var(--az2)}
+.kpi-lbl-func,.kpi-lbl-ciud{font-size:9.5px;color:var(--gtxt);font-weight:600;text-transform:uppercase;letter-spacing:.7px;margin-top:5px;line-height:1.3}
+.kpi-lbl-ciud{display:none}
+
+/* MODO CIUDADANO */
+body.modo-ciudadano .kpi-lbl-func{display:none}
+body.modo-ciudadano .kpi-lbl-ciud{display:block}
+body.modo-ciudadano .kpi-val-func{display:none}
+body.modo-ciudadano .kpi-val-ciud{display:block}
+.kpi-val-ciud{display:none}
+
+/* ═══ SEMAFORO CIUDADANO ═══ */
+.semaforo-wrap{display:none;margin-bottom:14px}
+body.modo-ciudadano .semaforo-wrap{display:block}
+.semaforo-card{
+  background:var(--blanco);border-radius:var(--r);
+  padding:20px 24px;box-shadow:var(--sombra);
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.sem-icon{font-size:56px;line-height:1;flex-shrink:0}
+.sem-txt .big{font-family:'Syne',sans-serif;font-size:clamp(22px,3vw,36px);font-weight:800;color:var(--az1)}
+.sem-txt .msg{font-size:14px;color:var(--gtxt);max-width:480px;line-height:1.5;margin-top:4px}
+.sem-bar-wrap{flex:1;min-width:200px}
+.sem-bar-bg{background:#E2E8F0;border-radius:8px;height:18px;overflow:hidden;position:relative}
+.sem-bar-fill{height:18px;border-radius:8px;transition:width 1s ease}
+.sem-bar-lbls{display:flex;justify-content:space-between;font-size:10px;color:var(--gtxt);margin-top:4px}
+.sem-meta{font-size:11px;color:var(--az2);margin-top:6px;font-weight:600}
+
+/* ═══ VISTAS ═══ */
+.vista{display:none}.vista.active{display:block}
+
+/* ═══ LAYOUT ═══ */
+.panel-row{display:grid;gap:14px;margin-bottom:14px}
+.c3{grid-template-columns:260px 1fr 260px}
+.c2{grid-template-columns:1fr 1fr}
+.c1{grid-template-columns:1fr}
+.col-flex{display:flex;flex-direction:column;gap:14px}
+
+/* ═══ CARD ═══ */
+.card{background:var(--blanco);border-radius:var(--r);padding:18px 16px;box-shadow:var(--sombra)}
+.card-title{
+  font-family:'Syne',sans-serif;font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.9px;color:var(--az1);
+  margin-bottom:12px;padding-bottom:9px;border-bottom:2px solid var(--az-pal);
+  display:flex;align-items:center;gap:7px;
+}
+.card-title i{color:var(--dor);font-size:12px}
+.seg-label{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--az-pal);border:1px solid var(--az3);
+  color:var(--az1);border-radius:20px;padding:4px 12px;
+  font-size:10px;font-weight:600;margin-bottom:12px;
+}
+.seg-label i{color:var(--az2)}
+
+/* ═══ GAUGE ═══ */
+.gauge-wrap{position:relative;width:100%;max-width:185px;margin:0 auto 4px}
+.gauge-overlay{position:absolute;bottom:0;left:50%;transform:translateX(-50%);text-align:center;width:100%}
+.g-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--az1);line-height:1}
+.g-sub{font-size:9px;color:var(--gtxt);text-transform:uppercase;letter-spacing:.4px}
+.gauge-range{display:flex;justify-content:space-between;font-size:10px;color:var(--gtxt);padding:0 4px;margin-top:2px}
+
+/* ═══ PUESTO ═══ */
+.puesto-badge{
+  text-align:center;padding:14px 12px;
+  background:linear-gradient(135deg,var(--az-pal),#d4e4fb);
+  border-radius:12px;border:2px solid var(--az3);box-shadow:var(--sombra);
+}
+.puesto-lbl{font-size:10px;color:var(--gtxt);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.puesto-num{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;color:var(--az1);line-height:1}
+.puesto-of{font-size:12px;color:var(--gtxt);font-weight:600}
+.puesto-mun{font-size:10px;color:var(--gtxt);margin-top:2px}
+
+/* ═══ TABLA ═══ */
+.tbl-ctrl{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.tbl-search{
+  flex:1;min-width:200px;padding:7px 12px;border:1.5px solid var(--gris);
+  border-radius:8px;font-size:12px;font-family:'DM Sans',sans-serif;
+  color:var(--txt);background:var(--bg);transition:border .2s;
+}
+.tbl-search:focus{outline:none;border-color:var(--az3)}
+.tbl-scroll{overflow-x:auto;max-height:560px;overflow-y:auto}
+table{width:100%;border-collapse:collapse;font-size:11px;min-width:540px}
+thead tr{background:var(--az1);color:#fff;position:sticky;top:0;z-index:5}
+thead th{
+  padding:9px 10px;text-align:left;
+  font-family:'Syne',sans-serif;font-weight:700;letter-spacing:.6px;
+  text-transform:uppercase;font-size:10.5px;white-space:nowrap;
+}
+tbody tr{border-bottom:1px solid var(--gris);transition:background .15s}
+tbody tr:hover{background:var(--az-pal)}
+tbody td{padding:7px 10px;vertical-align:middle;font-size:11px}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}
+.bg{background:#D1FAE5;color:#065F46}
+.by{background:#FEF3C7;color:#92400E}
+.br{background:#FEE2E2;color:#991B1B}
+.b0{background:#F3F4F6;color:#6B7280}
+.pbar-wrap{background:var(--gris);border-radius:4px;height:6px;min-width:55px}
+.pbar-fill{height:6px;border-radius:4px}
+
+/* ═══ LEGEND ═══ */
+.func-legend{display:flex;flex-direction:column;gap:5px;margin-top:10px}
+.fl-item{display:flex;align-items:flex-start;gap:7px;font-size:11px;line-height:1.3}
+.fl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:2px}
+
+/* ═══ RESUMEN ESPECIAL ═══ */
+.res-hero{
+  background:linear-gradient(135deg,var(--az1),var(--az2));
+  border-radius:var(--r);padding:28px 28px;color:#fff;
+  box-shadow:var(--shov);margin-bottom:14px;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.res-hero .big-pct{
+  font-family:'Syne',sans-serif;font-size:clamp(52px,8vw,88px);
+  font-weight:800;color:var(--dor-c);line-height:1;flex-shrink:0;
+}
+.res-hero .rh-txt .label{font-size:13px;opacity:.75;letter-spacing:.5px;text-transform:uppercase}
+.res-hero .rh-txt .desc{font-size:clamp(14px,2vw,18px);font-weight:600;margin-top:4px;line-height:1.4;max-width:360px}
+.res-hero .rh-txt .note{font-size:11px;opacity:.6;margin-top:6px}
+.piv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.piv-card{
+  background:var(--blanco);border-radius:var(--r);padding:16px;
+  box-shadow:var(--sombra);border-left:4px solid var(--az2);
+}
+.piv-card.dor{border-left-color:var(--dor)}
+.piv-card .pv{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--az1)}
+.piv-card.dor .pv{color:var(--dor-o)}
+.piv-card .pl{font-size:10px;color:var(--gtxt);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+.piv-card .ps{font-size:11px;color:var(--gtxt);margin-top:4px}
+
+/* OCULTAR en modo ciudadano elementos técnicos */
+body.modo-ciudadano .func-only{display:none!important}
+
+/* ═══ DARK MODE ═══ */
+body.dark{
+  --blanco:#162035;--bg:#0C1424;--gris:#1E3052;
+  --gtxt:#8BA8C8;--txt:#E0ECFF;--az-pal:#0F1E38;
+  --sombra:0 2px 16px rgba(0,0,0,.5);
+}
+body.dark .card{background:#162035;border:1px solid #1E3052}
+body.dark .kpi-card{background:#162035;border:1px solid #1E3052}
+body.dark .kpi-val{color:#7DC8F8}
+body.dark .kpi-card.hl .kpi-val{color:#93C5FD}
+body.dark .card-title{color:#C8E0FF;border-bottom-color:#1E3052}
+body.dark .seg-label{background:#0F1E38;border-color:#2E5BA8;color:#C8E0FF}
+body.dark .g-val{color:#7DC8F8}
+body.dark .puesto-num{color:#7DC8F8}
+body.dark .puesto-badge{background:linear-gradient(135deg,#0F1E38,#162035);border-color:#2E5BA8}
+body.dark thead tr{background:#071224}
+body.dark tbody tr:hover{background:#0F1E38}
+body.dark tbody td{color:#C8E0FF}
+body.dark .tbl-search{background:#162035;border-color:#1E3052;color:#E0ECFF}
+body.dark .piv-card{background:#162035;border:1px solid #1E3052}
+body.dark .piv-card .pv{color:#7DC8F8}
+body.dark .res-hero{background:linear-gradient(135deg,#071A3E,#0D2B5E)}
+body.dark .semaforo-card{background:#162035}
+body.dark .sem-txt .big{color:#7DC8F8}
+body.dark .bg{background:#0C2E1C;color:#6EE7A8}
+body.dark .by{background:#2D1E00;color:#FCD34D}
+body.dark .br{background:#2D0A0A;color:#FCA5A5}
+body.dark .b0{background:#1E2A3A;color:#94A3B8}
+
+/* ═══ ANIMACIÓN ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.vista.active .card{animation:fadeUp .3s ease both}
+.vista.active .kpi-card{animation:fadeUp .25s ease both}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1120px){
+  .kpi-grid{grid-template-columns:repeat(3,1fr)}
+  .c3{grid-template-columns:1fr 1fr}
+  .c3 .col-center{grid-column:span 2;order:-1}
+  .piv-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:680px){
+  main{padding:10px 10px 40px}
+  .hdr-top{padding:10px 14px}
+  .tabs-bar{padding:0 8px}
+  .hdr-chip{display:none}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .c3{grid-template-columns:1fr}
+  .c3 .col-center{grid-column:span 1;order:0}
+  .c2{grid-template-columns:1fr}
+  .card{padding:14px 12px}
+  .escudo-wrap{width:46px;height:54px}
+  .piv-grid{grid-template-columns:1fr}
+}
+
+/* FOOTER */
+footer{background:var(--az1);color:rgba(255,255,255,.55);text-align:center;padding:12px 20px;font-size:11px;line-height:1.7}
+footer b{color:var(--dor)}
+</style>
+</head>
+<body id="bodyEl">
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <div class="hdr-top">
+    <div class="hdr-brand">
+      <!-- Escudo GR Moquegua (SVG fiel) -->
+      <div class="escudo-wrap">
+        <svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="sc"><path d="M100 6 L190 6 L190 135 Q190 198 100 222 Q10 198 10 135 L10 6 Z"/></clipPath></defs>
+          <!-- fondo -->
+          <path d="M100 6 L190 6 L190 135 Q190 198 100 222 Q10 198 10 135 L10 6 Z" fill="#FFFFFF" stroke="#1A4A9E" stroke-width="4"/>
+          <!-- cielo azul superior -->
+          <rect x="10" y="6" width="180" height="80" fill="#C8E0FF" clip-path="url(#sc)"/>
+          <!-- sol -->
+          <circle cx="100" cy="45" r="28" fill="#F5A623" clip-path="url(#sc)"/>
+          <!-- montañas -->
+          <polygon points="10,110 50,60 80,85 100,55 130,80 165,50 190,110" fill="#2E5BA8" clip-path="url(#sc)"/>
+          <polygon points="10,115 55,72 85,92 100,65 130,87 160,60 190,115" fill="#4A7FD4" opacity=".7" clip-path="url(#sc)"/>
+          <!-- tierra agrícola -->
+          <rect x="10" y="110" width="90" height="112" fill="#6AAF4A" clip-path="url(#sc)"/>
+          <rect x="10" y="122" width="90" height="7" fill="#4E8A32" opacity=".5" clip-path="url(#sc)"/>
+          <rect x="10" y="136" width="90" height="7" fill="#4E8A32" opacity=".5" clip-path="url(#sc)"/>
+          <rect x="10" y="150" width="90" height="7" fill="#4E8A32" opacity=".5" clip-path="url(#sc)"/>
+          <!-- agua / lago azul -->
+          <rect x="100" y="110" width="90" height="112" fill="#5BACD6" clip-path="url(#sc)"/>
+          <ellipse cx="145" cy="155" rx="32" ry="18" fill="#7DCCEE" clip-path="url(#sc)"/>
+          <ellipse cx="145" cy="155" rx="24" ry="12" fill="#A8E4F8" opacity=".7" clip-path="url(#sc)"/>
+          <!-- línea divisoria vertical -->
+          <line x1="100" y1="110" x2="100" y2="222" stroke="#1A4A9E" stroke-width="1.5"/>
+          <!-- línea divisoria horizontal -->
+          <line x1="10" y1="110" x2="190" y2="110" stroke="#1A4A9E" stroke-width="2"/>
+          <!-- cóndor estilizado -->
+          <path d="M70,88 Q80,78 100,72 Q120,78 130,88 Q115,82 100,80 Q85,82 70,88 Z" fill="#1A3060" opacity=".8" clip-path="url(#sc)"/>
+          <!-- borde escudo -->
+          <path d="M100 6 L190 6 L190 135 Q190 198 100 222 Q10 198 10 135 L10 6 Z" fill="none" stroke="#1A4A9E" stroke-width="4"/>
+          <!-- franja dorada superior -->
+          <rect x="10" y="6" width="180" height="14" fill="#C8A84B" opacity=".9" clip-path="url(#sc)"/>
+        </svg>
+      </div>
+      <div class="hdr-txt">
+        <div class="sup">Gobierno Regional de Moquegua &nbsp;·&nbsp; Perú</div>
+        <div class="tit">Moquegua Transparente – Ejecución 2026</div>
+        <div class="sub"><i class="fas fa-calendar-alt" style="margin-right:4px;opacity:.6"></i>Datos al 04 de Marzo 2026 · MEF Consulta Amigable</div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <!-- Modo Toggle -->
+      <div class="modo-toggle">
+        <button class="modo-btn active" id="btnFunc" onclick="setModo('func')">
+          <i class="fas fa-briefcase"></i>Funcionario
+        </button>
+        <button class="modo-btn" id="btnCiud" onclick="setModo('ciud')">
+          <i class="fas fa-users"></i>Ciudadano
+        </button>
+      </div>
+      <div class="hdr-chip"><i class="fas fa-map-marker-alt" style="margin-right:4px;opacity:.7"></i>Moquegua</div>
+      <button class="btn-dark" id="darkBtn" onclick="toggleDark()"><i class="fas fa-moon"></i></button>
+    </div>
+  </div>
+  <div class="tabs-bar">
+    <button class="tab-btn active" onclick="showTab('resumen')"><i class="fas fa-home"></i>Resumen</button>
+    <button class="tab-btn" onclick="showTab('ranking')"><i class="fas fa-trophy"></i>Ranking Nacional</button>
+    <button class="tab-btn" onclick="showTab('funciones')"><i class="fas fa-layer-group"></i>Funciones</button>
+    <button class="tab-btn" onclick="showTab('proyectos')"><i class="fas fa-project-diagram"></i>Proyectos</button>
+  </div>
+</header>
+
+<!-- ══════════ MAIN ══════════ -->
+<main>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-val"><span class="kpi-val-func" id="kv0">—</span><span class="kpi-val-ciud" id="kvc0">—</span></div>
+      <div class="kpi-lbl-func">PIA</div><div class="kpi-lbl-ciud">Presupuesto Inicial</div>
+    </div>
+    <div class="kpi-card hl">
+      <div class="kpi-val"><span class="kpi-val-func" id="kv1">—</span><span class="kpi-val-ciud" id="kvc1">—</span></div>
+      <div class="kpi-lbl-func">PIM</div><div class="kpi-lbl-ciud">Presupuesto Disponible</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val"><span class="kpi-val-func" id="kv2">—</span><span class="kpi-val-ciud" id="kvc2">—</span></div>
+      <div class="kpi-lbl-func">Certificación</div><div class="kpi-lbl-ciud">Comprometido</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val"><span class="kpi-val-func" id="kv3">—</span><span class="kpi-val-ciud" id="kvc3">—</span></div>
+      <div class="kpi-lbl-func">Compro. Mensual</div><div class="kpi-lbl-ciud">En proceso de pago</div>
+    </div>
+    <div class="kpi-card hl">
+      <div class="kpi-val"><span class="kpi-val-func" id="kv4">—</span><span class="kpi-val-ciud" id="kvc4">—</span></div>
+      <div class="kpi-lbl-func">Devengado</div><div class="kpi-lbl-ciud">Ya se ejecutó</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val"><span class="kpi-val-func" id="kv5">—</span><span class="kpi-val-ciud" id="kvc5">—</span></div>
+      <div class="kpi-lbl-func">Girado</div><div class="kpi-lbl-ciud">Pagado efectivamente</div>
+    </div>
+  </div>
+
+  <!-- SEMÁFORO CIUDADANO -->
+  <div class="semaforo-wrap">
+    <div class="semaforo-card">
+      <div class="sem-icon" id="semIcon">🟡</div>
+      <div class="sem-txt">
+        <div class="big" id="semBig">—</div>
+        <div class="msg" id="semMsg">—</div>
+      </div>
+      <div class="sem-bar-wrap">
+        <div class="sem-bar-bg"><div class="sem-bar-fill" id="semFill" style="width:0%"></div></div>
+        <div class="sem-bar-lbls"><span>0%</span><span id="semMeta">Meta: —</span><span>100%</span></div>
+        <div class="sem-meta" id="semMetaTxt">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RESUMEN ═══ -->
+  <div id="vistaResumen" class="vista active">
+    <!-- Hero -->
+    <div class="res-hero">
+      <div class="big-pct" id="heroPct">16.1%</div>
+      <div class="rh-txt">
+        <div class="label">Avance de ejecución presupuestal</div>
+        <div class="desc" id="heroDesc">Gobierno Regional Moquegua ejecutó <strong>S/ 141,734,146</strong> de un presupuesto disponible de <strong>S/ 881,204,642</strong></div>
+        <div class="note">Fuente: MEF – Consulta Amigable · Corte: 04 Marzo 2026 · Solo Actividades y Proyectos</div>
+      </div>
+    </div>
+    <!-- Pivot cards -->
+    <div class="piv-grid">
+      <div class="piv-card">
+        <div class="pv">Puesto 11°</div>
+        <div class="pl">Ranking Nacional</div>
+        <div class="ps">de 26 Gobiernos Regionales · 16.1% avance</div>
+      </div>
+      <div class="piv-card dor">
+        <div class="pv" style="color:var(--dor-o)">S/ 141.7 mill.</div>
+        <div class="pl">Devengado 2026</div>
+        <div class="ps">De S/ 881.2 mill. disponibles en el año</div>
+      </div>
+      <div class="piv-card">
+        <div class="pv">21 Funciones</div>
+        <div class="pl">Sectores del gasto</div>
+        <div class="ps">Educación y Salud concentran el 75% del presupuesto</div>
+      </div>
+      <div class="piv-card dor">
+        <div class="pv" style="color:var(--dor-o)">+100 proyectos</div>
+        <div class="pl">Inversión activa</div>
+        <div class="ps">Proyectos de inversión en ejecución a nivel regional</div>
+      </div>
+      <div class="piv-card">
+        <div class="pv">17.9%</div>
+        <div class="pl">Educación (mayor función)</div>
+        <div class="ps">S/ 375.1 mill. PIM · S/ 67.3 mill. devengado</div>
+      </div>
+      <div class="piv-card">
+        <div class="pv">50.0%</div>
+        <div class="pl">Deuda Pública (mejor avance)</div>
+        <div class="ps">S/ 11.4 mill. PIM · S/ 5.7 mill. devengado</div>
+      </div>
+    </div>
+    <!-- Charts row -->
+    <div class="panel-row c2">
+      <div class="card">
+        <div class="card-title"><i class="fas fa-chart-bar"></i>Top 5 Funciones por PIM</div>
+        <div style="position:relative;height:260px"><canvas id="chartResFunc"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="fas fa-chart-line"></i>Posición vs. Regiones Vecinas</div>
+        <div style="position:relative;height:260px"><canvas id="chartResComp"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RANKING ═══ -->
+  <div id="vistaRanking" class="vista">
+    <div class="panel-row c3">
+      <!-- Izquierda -->
+      <div class="col-flex">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-chart-pie"></i>Devengado / PIM</div>
+          <div class="seg-label"><i class="fas fa-check-circle"></i>Actividades y Proyectos</div>
+          <div class="gauge-wrap" style="max-width:165px">
+            <canvas id="chartRkPie" height="145"></canvas>
+          </div>
+          <div style="text-align:center;margin-top:8px">
+            <div style="font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:var(--az1)">16.1%</div>
+            <div style="font-size:10px;color:var(--gtxt)">S/ 141,734,146 / S/ 881,204,642</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="fas fa-circle-notch"></i>Avance Anual</div>
+          <div class="gauge-wrap">
+            <canvas id="chartRkG1" height="130"></canvas>
+            <div class="gauge-overlay" style="bottom:8px"><div class="g-val">16.1%</div><div class="g-sub">Devengado/PIM</div></div>
+          </div>
+          <div class="gauge-range"><span>0%</span><span>100%</span></div>
+        </div>
+      </div>
+      <!-- Centro ranking barras -->
+      <div class="card col-center">
+        <div class="card-title"><i class="fas fa-medal"></i>Ranking Avance % – 26 Gobiernos Regionales del Perú</div>
+        <div style="position:relative;width:100%;height:700px">
+          <canvas id="chartRkBar"></canvas>
+        </div>
+      </div>
+      <!-- Derecha -->
+      <div class="col-flex">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-ranking-star"></i>Posición Nacional</div>
+          <div class="puesto-badge">
+            <div class="puesto-lbl">Puesto</div>
+            <div class="puesto-num">11°</div>
+            <div class="puesto-of">de 26 Gobiernos Regionales</div>
+            <div class="puesto-mun">Gobierno Regional de Moquegua</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="fas fa-calendar-check"></i>Meta Programada Mensual</div>
+          <div class="gauge-wrap">
+            <canvas id="chartRkG2" height="130"></canvas>
+            <div class="gauge-overlay" style="bottom:8px"><div class="g-val">25.2%</div><div class="g-sub">Meta al cierre Feb.</div></div>
+          </div>
+          <div class="gauge-range"><span>0%</span><span>100%</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="fas fa-info-circle"></i>Contexto Nacional</div>
+          <div style="font-size:11px;color:var(--gtxt);line-height:1.7">
+            <div style="margin-bottom:6px">🥇 <strong>Líder:</strong> Munic. Metrop. Lima — 25.9%</div>
+            <div style="margin-bottom:6px">📊 <strong>Promedio nacional:</strong> ~16.2%</div>
+            <div style="margin-bottom:6px">🟡 <strong>Moquegua:</strong> 16.1% — Puesto 11°</div>
+            <div style="margin-bottom:6px">🔴 <strong>Rezagado:</strong> Callao — 12.0%</div>
+            <div style="font-size:10px;margin-top:8px;color:var(--az2);font-weight:600">Corte: 04 Marzo 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FUNCIONES ═══ -->
+  <div id="vistaFunciones" class="vista">
+    <div class="panel-row c3">
+      <div class="card">
+        <div class="card-title"><i class="fas fa-chart-pie"></i>Distribución PIM por Función</div>
+        <div class="seg-label"><i class="fas fa-check-circle"></i>Actividades y Proyectos</div>
+        <canvas id="chartFuncPie"></canvas>
+        <div class="func-legend" id="funcLegend"></div>
+      </div>
+      <div class="card col-center">
+        <div class="card-title"><i class="fas fa-bars"></i>Avance % por Función</div>
+        <div class="seg-label"><i class="fas fa-check-circle"></i>Actividades y Proyectos</div>
+        <div style="position:relative;height:380px"><canvas id="chartFuncBar"></canvas></div>
+      </div>
+      <div class="col-flex">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-circle-notch"></i>Avance Total</div>
+          <div class="gauge-wrap">
+            <canvas id="chartFuncGauge" height="130"></canvas>
+            <div class="gauge-overlay" style="bottom:8px"><div class="g-val">16.1%</div><div class="g-sub">Devengado/PIM</div></div>
+          </div>
+          <div class="gauge-range"><span>0%</span><span>100%</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="fas fa-star"></i>Funciones Destacadas</div>
+          <div style="font-size:11px;line-height:1.8;color:var(--gtxt)">
+            <div>🏆 <strong>Deuda Pública</strong> — 50.0%</div>
+            <div>🥈 <strong>Comunicaciones</strong> — 36.6%</div>
+            <div>🥉 <strong>Industria</strong> — 33.5%</div>
+            <div style="margin-top:6px;border-top:1px solid var(--gris);padding-top:6px">
+            ⚠️ <strong>Saneamiento</strong> — solo 2.8%<br>
+            ⚠️ <strong>Minería</strong> — solo 4.0%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tabla funciones -->
+    <div class="panel-row c1">
+      <div class="card">
+        <div class="card-title"><i class="fas fa-table"></i>Detalle por Función – Todas las Funciones</div>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr>
+              <th>#</th><th>Función</th>
+              <th class="func-only">PIA (S/)</th>
+              <th>PIM (S/)</th>
+              <th>Devengado (S/)</th>
+              <th>Avance %</th><th>Progreso</th>
+            </tr></thead>
+            <tbody id="bodyFunciones"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PROYECTOS ═══ -->
+  <div id="vistaProyectos" class="vista">
+    <div class="panel-row c3">
+      <div class="card">
+        <div class="card-title"><i class="fas fa-chart-pie"></i>Top Proyectos por Devengado</div>
+        <canvas id="chartProyPie"></canvas>
+      </div>
+      <div class="card col-center">
+        <div class="card-title"><i class="fas fa-chart-bar"></i>Top 15 Proyectos por Avance %</div>
+        <div style="position:relative;height:380px"><canvas id="chartProyBar"></canvas></div>
+      </div>
+      <div class="col-flex">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-circle-notch"></i>Avance Total Proyectos</div>
+          <div class="gauge-wrap">
+            <canvas id="chartProyGauge" height="130"></canvas>
+            <div class="gauge-overlay" style="bottom:8px"><div class="g-val" id="proyGV">—</div><div class="g-sub">Dev/PIM</div></div>
+          </div>
+          <div class="gauge-range"><span>0%</span><span>100%</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="fas fa-star"></i>Proyectos Destacados</div>
+          <div style="font-size:11px;line-height:1.8;color:var(--gtxt)">
+            <div>🏆 <strong>Pasto Grande (Op. y Mantenimiento)</strong> 37.7%</div>
+            <div>🥈 <strong>Lomas de Ilo (Campaña agrícola)</strong> 35.3%</div>
+            <div>🥉 <strong>Carretera MO-100 Quinistaquillas</strong> 30.0%</div>
+            <div style="margin-top:6px;border-top:1px solid var(--gris);padding-top:6px">
+            ⚠️ <strong>IE Fernando Belaunde Terry</strong> 6.1% (S/ 14M PIM)<br>
+            ⚠️ <strong>Prot. ribereña Tumilaca/Moquegua</strong> 9.8% (S/ 28.4M PIM)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tabla proyectos -->
+    <div class="panel-row c1">
+      <div class="card">
+        <div class="card-title"><i class="fas fa-table"></i>Todos los Proyectos de Inversión – Ordenados por Avance %</div>
+        <div class="tbl-ctrl">
+          <input class="tbl-search" id="srchProy" placeholder="🔍  Buscar proyecto por nombre o código..." oninput="filtrarProyectos()"/>
+          <span style="font-size:11px;color:var(--gtxt)" id="contProyectos"></span>
+        </div>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr>
+              <th>#</th><th>Código</th><th>Proyecto</th>
+              <th>PIM (S/)</th><th>Devengado (S/)</th>
+              <th>Avance %</th><th>Progreso</th>
+            </tr></thead>
+            <tbody id="bodyProyectos"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Dashboard de <b>Transparencia Ciudadana</b> &nbsp;·&nbsp;
+  Datos: <b>MEF – Consulta Amigable</b> &nbsp;·&nbsp;
+  Gobierno Regional de Moquegua &nbsp;·&nbsp;
+  Corte: <b>04 Marzo 2026</b>
+</footer>
+
+<!-- ══════════ DATA ══════════ -->
+<script>
+// ═══════════════════════════════════════════
+//  DATOS  |  MEF Consulta Amigable  |  04-Mar-2026
+//  Gobierno Regional Moquegua
+// ═══════════════════════════════════════════
+const D = {
+  total:{
+    pia:852773759, pim:881204642, cert:293159238,
+    compMens:178493491, dev:141734146, girado:126788214, av:16.1
+  },
+  // 26 Regiones ordenadas por avance desc
+  ranking:[
+    {n:"Munic. Metrop. Lima",  pim:60519019,    dev:15661686,  av:25.9},
+    {n:"Pasco",               pim:1280004797,  dev:309379034, av:24.2},
+    {n:"Amazonas",            pim:1650850333,  dev:370945694, av:22.5},
+    {n:"Loreto",              pim:3824457068,  dev:834785248, av:21.8},
+    {n:"Junín",               pim:3614861985,  dev:698882762, av:19.3},
+    {n:"Tacna",               pim:1036731992,  dev:192562784, av:18.6},
+    {n:"Cajamarca",           pim:3941599861,  dev:700742565, av:17.8},
+    {n:"Ica",                 pim:2086156469,  dev:350281054, av:16.8},
+    {n:"Piura",               pim:4553604456,  dev:746305234, av:16.4},
+    {n:"San Martín",          pim:2586273410,  dev:416135267, av:16.1},
+    {n:"MOQUEGUA",            pim:881204642,   dev:141734146, av:16.1},
+    {n:"Ayacucho",            pim:2764572288,  dev:440599388, av:15.9},
+    {n:"Lambayeque",          pim:2631547952,  dev:419359182, av:15.9},
+    {n:"Ucayali",             pim:1995730657,  dev:315393677, av:15.8},
+    {n:"Apurímac",            pim:1661291118,  dev:253690511, av:15.3},
+    {n:"Puno",                pim:3493918666,  dev:529362339, av:15.2},
+    {n:"Lima (Región)",       pim:2389756395,  dev:350422546, av:14.7},
+    {n:"Áncash",              pim:3371926704,  dev:490220941, av:14.5},
+    {n:"Huancavelica",        pim:1544463391,  dev:220896393, av:14.3},
+    {n:"Arequipa",            pim:3010975359,  dev:427018898, av:14.2},
+    {n:"Huánuco",             pim:2306155177,  dev:325530887, av:14.1},
+    {n:"Tumbes",              pim:768231703,   dev:108349337, av:14.1},
+    {n:"La Libertad",         pim:4420191551,  dev:617028230, av:14.0},
+    {n:"Cusco",               pim:3823859645,  dev:530772526, av:13.9},
+    {n:"Madre de Dios",       pim:635694377,   dev:77654044,  av:12.2},
+    {n:"Callao",              pim:1972710256,  dev:237523153, av:12.0}
+  ],
+  // 21 Funciones del GR Moquegua
+  funciones:[
+    {cod:"22",nom:"Educación",                  pia:353731013, pim:375093945, dev:67285179,  av:17.9},
+    {cod:"20",nom:"Salud",                      pia:259611169, pim:280484437, dev:35959272,  av:12.8},
+    {cod:"10",nom:"Agropecuaria",               pia:62389468,  pim:59953400,  dev:12426633,  av:20.7},
+    {cod:"03",nom:"Planeamiento y Gestión",     pia:39194383,  pim:45239218,  dev:7241039,   av:16.0},
+    {cod:"05",nom:"Orden Público y Seguridad",  pia:80902419,  pim:36866304,  dev:3147900,   av:8.5},
+    {cod:"15",nom:"Transporte",                 pia:28749316,  pim:24864015,  dev:3476226,   av:14.0},
+    {cod:"24",nom:"Previsión Social",           pia:14675990,  pim:14955350,  dev:2638834,   av:17.6},
+    {cod:"25",nom:"Deuda Pública",              pia:0,         pim:11370474,  dev:5687006,   av:50.0},
+    {cod:"12",nom:"Energía",                    pia:463956,    pim:5166551,   dev:687728,    av:13.3},
+    {cod:"08",nom:"Comercio",                   pia:0,         pim:5608712,   dev:627321,    av:11.2},
+    {cod:"18",nom:"Saneamiento",                pia:89564,     pim:4395883,   dev:122642,    av:2.8},
+    {cod:"11",nom:"Pesca",                      pia:3696816,   pim:3949943,   dev:776020,    av:19.6},
+    {cod:"09",nom:"Turismo",                    pia:2645054,   pim:3244562,   dev:347346,    av:10.7},
+    {cod:"07",nom:"Trabajo",                    pia:2084273,   pim:3614673,   dev:265460,    av:7.3},
+    {cod:"23",nom:"Protección Social",          pia:742624,    pim:1610111,   dev:303102,    av:18.8},
+    {cod:"17",nom:"Ambiente",                   pia:1819094,   pim:1888983,   dev:196134,    av:10.4},
+    {cod:"19",nom:"Vivienda y Des. Urbano",     pia:906526,    pim:952833,    dev:84338,     av:8.9},
+    {cod:"14",nom:"Industria",                  pia:241164,    pim:1125984,   dev:376940,    av:33.5},
+    {cod:"21",nom:"Cultura y Deporte",          pia:389093,    pim:361232,    dev:61324,     av:17.0},
+    {cod:"13",nom:"Minería",                    pia:441837,    pim:441837,    dev:17700,     av:4.0},
+    {cod:"16",nom:"Comunicaciones",             pia:0,         pim:16395,     dev:6000,      av:36.6}
+  ],
+  // Proyectos de inversión (códigos 2xxxxxxx) - ordenados por avance desc
+  proyectos:[
+    {cod:"2634538", nom:"Habitabilidad sede Pasto Grande",                                             pim:19669,    dev:18569,   av:94.4},
+    {cod:"2698707", nom:"Recuperación siembra y cosecha agua (4 distritos Gral. Sánchez Cerro)",      pim:260780,   dev:258939,  av:99.3},
+    {cod:"2702123", nom:"Recuperación siembra y cosecha agua (5 distritos Gral. Sánchez Cerro)",      pim:246624,   dev:234754,  av:95.2},
+    {cod:"2674059", nom:"Producción estructuras metalmecan. AEO SOLDESP S.A.C.",                       pim:327236,   dev:320000,  av:97.8},
+    {cod:"2571357", nom:"Sistema galerias filtrantes drenajes riego agrícola Ilo-Mariscal Nieto",     pim:16250,    dev:16250,   av:100.0},
+    {cod:"2599503", nom:"Mejora serv. op. CREBE Anne Sullivan (CREBE Moquegua)",                       pim:9000,     dev:9000,    av:100.0},
+    {cod:"2626748", nom:"Recuperación servicios ecosistémicos lagunas y bofedales",                   pim:14636,    dev:14635,   av:100.0},
+    {cod:"2674007", nom:"Producción pollos de engorde (Asoc. El Edén II)",                             pim:17366,    dev:17366,   av:100.0},
+    {cod:"2674009", nom:"Producción cuyes (Asoc. Emprendedores Valle de Yalaque)",                     pim:22560,    dev:22560,   av:100.0},
+    {cod:"2674020", nom:"Producción huevos chacra gallinas genética (Asoc. Virgen del Rosario)",       pim:19200,    dev:19200,   av:100.0},
+    {cod:"2600526", nom:"Transitabilidad vial interurbana vía vecinal Emp. MO-504 Centro Pob. Chilata",pim:911328,   dev:741223,  av:81.3},
+    {cod:"2674021", nom:"Extracción recursos hidrobiológicos perico y jorvina armadores Ilo",          pim:99198,    dev:73990,   av:74.6},
+    {cod:"2674069", nom:"Producción recurso erizo Asoc. Buzos Pulmoneros Bahía Sur Ilo",               pim:56886,    dev:42800,   av:75.2},
+    {cod:"2674057", nom:"Calidad producción bayas uva Red Globe (Asoc. Santo Domingo)",                pim:17092,    dev:11040,   av:64.6},
+    {cod:"2674033", nom:"Crianza ganado vacuno lechero (Asoc. San Lorenzo de Chojata)",                pim:11869,    dev:7299,    av:61.5},
+    {cod:"2303382", nom:"Ampliación sistema eléctrico sectores PROMUVI I y II - El Algarrobal",        pim:30000,    dev:15990,   av:53.3},
+    {cod:"2674017", nom:"Producción cuyes (Asoc. Panchoocco Maycunaca - Ichuña)",                      pim:66630,    dev:35490,   av:53.3},
+    {cod:"2173524", nom:"Servicios aprovechamiento atractivos turísticos valles interandinos",         pim:78165,    dev:40802,   av:52.2},
+    {cod:"2502671", nom:"Agua para riego sistemas Samatelo y Quilancha - Moquegua",                    pim:404964,   dev:213257,  av:52.7},
+    {cod:"2691737", nom:"Sala usos múltiples amb. servicios I.E. Corazón de María (San Antonio)",      pim:450677,   dev:225576,  av:50.1},
+    {cod:"2638581", nom:"Serv. op. Gerencia Regional de Desarrollo Económico",                         pim:500000,   dev:240400,  av:48.1},
+    {cod:"2596701", nom:"Canal de riego derivación Chunchuna - Puquina",                               pim:107400,   dev:48418,   av:45.1},
+    {cod:"2674568", nom:"Reparación sistema riego; sistema control monitoreo Represa Chirimayuni",     pim:1642494,  dev:700492,  av:42.6},
+    {cod:"2654104", nom:"Espacio deportivo con cobertura I.E. 43018 Mariano Lino Urquieta",            pim:716419,   dev:281936,  av:39.4},
+    {cod:"2521609", nom:"Servicio educ. nivel inicial AH PROMUVI XI Pampa Inalámbrica",                pim:230137,   dev:89757,   av:39.0},
+    {cod:"2507679", nom:"Servicio educ. primaria-secundaria I.E. Técnica Coronel Manuel De La Torre",  pim:168718,   dev:64266,   av:38.1},
+    {cod:"2002178", nom:"Operación y mantenimiento Proyecto Especial Regional Pasto Grande",           pim:7323505,  dev:2762723, av:37.7},
+    {cod:"2515344", nom:"Mejora maquinaria Unidad Operativa PER Pasto Grande",                         pim:539915,   dev:199369,  av:36.9},
+    {cod:"2473345", nom:"Servicio educ. inicial IEI 231 Bello Horizonte - Ilo",                        pim:88983,    dev:31711,   av:35.6},
+    {cod:"2166595", nom:"Ampliación campaña agrícola lomas de Ilo - Moquegua",                         pim:5079194,  dev:1793628, av:35.3},
+    {cod:"2691746", nom:"Cobertura y ambiente complementario I.E. Inmaculada Concepción (San Antonio)",pim:1187499,  dev:428205,  av:36.1},
+    {cod:"2674014", nom:"Capacidad productiva alevinos trucha arcoiris CC Totorani (Ichuña)",          pim:104395,   dev:33668,   av:32.3},
+    {cod:"2674005", nom:"Calidad y producción palta con innovación tecnológica (Sector La.E. San Miguel)",pim:31842, dev:10000,   av:31.4},
+    {cod:"2173318", nom:"Apoyo cadena productiva recurso choro - litoral marino Ilo",                  pim:1200000,  dev:371522,  av:31.0},
+    {cod:"2533608", nom:"Carretera MO-100 desde El Chorro al Km 05+979 - Quinistaquillas",             pim:5642122,  dev:1694773, av:30.0},
+    {cod:"2674019", nom:"Productividad alpacas (Asoc. Productores Agropecuarios Santa Cruz de Lloque)",pim:13377,   dev:4000,    av:29.9},
+    {cod:"2259692", nom:"Infraestructura hidráulica para población de Querapi asentada (Jaguay Rinconada)",pim:1008712,dev:288796,av:28.6},
+    {cod:"2476202", nom:"Servicio educ. superior tecnológica IESTP Ilo",                               pim:17620360, dev:5031837, av:28.6},
+    {cod:"2497702", nom:"Servicios de salud Establ. Estratégico Salud de Ichuña",                      pim:82588,    dev:22533,   av:27.3},
+    {cod:"2539348", nom:"Reparación espacio deportivo abierto I.E. Señor de los Milagros",             pim:35000,    dev:9123,    av:26.1},
+    {cod:"2674056", nom:"Ampliación áreas forrajeras y volumen producción lechera (Asoc. Resurgi Ubinas)",pim:54786, dev:13805,   av:25.2},
+    {cod:"2663026", nom:"Suministro eléctrico domiciliario rural zonas rurales Cogri",                 pim:1405875,  dev:341429,  av:24.3},
+    {cod:"2187790", nom:"Servicios extensión agrícola y asistencia técnica cadenas productivas GR",    pim:360000,   dev:84408,   av:23.4},
+    {cod:"2657907", nom:"Cobertura instalaciones deportivas I.E. Alfredo Rodríguez Ballón (Omate)",   pim:857314,   dev:189774,  av:22.1},
+    {cod:"2302938", nom:"Trocha carrozable 3er orden integración Huatalaque-San Cristóbal",            pim:1520000,  dev:342608,  av:22.5},
+    {cod:"2686448", nom:"Servicios op. Gerencia Regional de Desarrollo Social",                        pim:35662,    dev:10125,   av:28.4},
+    {cod:"2234657", nom:"Agua riego comisiones Coalaque y Pampa Dolores - Gral. Sánchez Cerro",       pim:5115914,  dev:972527,  av:19.0},
+    {cod:"2459547", nom:"Promoción y extensión agropecuaria en provincias Moquegua",                   pim:4482600,  dev:850285,  av:19.0},
+    {cod:"2174576", nom:"Servicio educ. modelo I.E. Pampa Inalámbrica (Ilo)",                          pim:7355758,  dev:1248268, av:17.0},
+    {cod:"2488777", nom:"Cadena productiva camélidos sudamericanos - provincias GR",                   pim:2000000,  dev:338813,  av:16.9},
+    {cod:"2495348", nom:"CS Estratégico Salud - Centro Poblado Pampa Inalámbrica (Ilo)",               pim:17513705, dev:2811319, av:16.1},
+    {cod:"2488453", nom:"Servicio educ. superior I.E.S.P.P. Mercedes Cabello de Carbonera",           pim:211798,   dev:33982,   av:16.0},
+    {cod:"2195488", nom:"Saneamiento básico integral distrito de Samegua",                             pim:250000,   dev:40088,   av:16.0},
+    {cod:"2260022", nom:"Red vial departamental Lloque - San Cristóbal - Torata - Huarina",            pim:289500,   dev:44812,   av:15.5},
+    {cod:"2174676", nom:"Servicio educ. I.E. Modelo Pampa Inalámbrica nivel primaria-secundaria",     pim:7355758,  dev:1248268, av:17.0},
+    {cod:"2477081", nom:"Protección ribereña ríos Tumilaca y Moquegua (Puente Tucumán - Montalvo)",   pim:28410087, dev:2790947, av:9.8},
+    {cod:"2508244", nom:"Sala de hemodiálisis Hospital Regional Moquegua",                             pim:4500000,  dev:525484,  av:11.7},
+    {cod:"2572270", nom:"Servicio educ. nivel primario I.E. Señor de Locumba",                         pim:4000000,  dev:707588,  av:17.7},
+    {cod:"2472459", nom:"Capacidad operativa Dirección Saneamiento Físico Legal - GR Agraria",         pim:1200000,  dev:219938,  av:18.3},
+    {cod:"2472550", nom:"Capacidad operativa protección y atención áreas productivas (Alta Villa)",    pim:2732988,  dev:312466,  av:11.4},
+    {cod:"2322192", nom:"Servicios de salud Establecimiento Salud Calacoa (San Cristóbal)",            pim:2385989,  dev:172551,  av:7.2},
+    {cod:"2328099", nom:"Servicios de salud Centro de Salud Samegua (Nivel I-3)",                      pim:2000000,  dev:279155,  av:14.0},
+    {cod:"2485619", nom:"Servicio educ. I.E. Amparo Baluarte - Moquegua",                              pim:2500000,  dev:521203,  av:20.8},
+    {cod:"2485779", nom:"Servicios educativos I.E. Fernando Belaunde Terry (San Antonio)",             pim:14000000, dev:858985,  av:6.1},
+    {cod:"2563807", nom:"Enseñanza y aprendizaje nivel primaria II.EE. Gral. Sánchez Cerro e Ilo",   pim:3500000,  dev:725711,  av:20.7},
+    {cod:"2572130", nom:"Servicio educ. inicial N°160 Virgen de Fátima (San Francisco)",               pim:3955138,  dev:392863,  av:9.9},
+    {cod:"2572157", nom:"Servicio educ. I.E. Santa Fortunata (Samegua)",                               pim:50000,    dev:7162,    av:14.3},
+    {cod:"2572270", nom:"Servicio educ. primario I.E. Señor de Locumba (Locumba)",                     pim:4000000,  dev:707588,  av:17.7},
+    {cod:"2001621", nom:"Estudios de pre-inversión Gobierno Regional Moquegua",                        pim:9623659,  dev:1244900, av:12.9},
+    {cod:"2016766", nom:"Iniciativa a la competitividad regional",                                     pim:3759142,  dev:159956,  av:4.3},
+    {cod:"2412083", nom:"Acopio y comercialización productos hidrobiológicos Pampa Inalámbrica",      pim:5000000,  dev:467366,  av:9.3},
+    {cod:"2476894", nom:"Información gestión del riesgo de desastres (3 provincias)",                  pim:3063630,  dev:82416,   av:2.7},
+    {cod:"2477081", nom:"Protección ribereña Tumilaca-Moquegua Tramo II",                              pim:28410087, dev:2790947, av:9.8},
+    {cod:"2485488", nom:"Enseñanza y aprendizaje Comunicación y Matemática nivel secundaria",          pim:2300000,  dev:150201,  av:6.5},
+    {cod:"2309138", nom:"Capacidades informáticas y tecnológicas estudiantes Ed. Básica Regular",      pim:13760510, dev:183983,  av:1.3},
+    {cod:"2674171", nom:"Servicio educ. primaria y secundaria I.E. Jorge Basadre Grohmann (Ilo)",     pim:666883,   dev:39423,   av:5.9},
+    {cod:"2674568", nom:"Reparación Represa Chirimayuni - Lloque",                                     pim:1642494,  dev:700492,  av:42.6},
+    {cod:"2663010", nom:"Remodelación amb. gest. administrativa y Lab. IESTP Los Andes (Carumas)",    pim:1921781,  dev:36894,   av:1.9},
+    {cod:"2559520", nom:"Productividad artesanos talleres provincias Mariscal Nieto, Ilo y Gral. SC", pim:1413623,  dev:151002,  av:10.7},
+    {cod:"2612472", nom:"Equipos biomédicos Hospital Ilo",                                             pim:5483804,  dev:333625,  av:6.1},
+    {cod:"2623343", nom:"Suministro eléctrico domiciliario zonas urbanas Ilo (4 unidades prod.)",     pim:1210500,  dev:104855,  av:8.7},
+    {cod:"2657907", nom:"Cobertura instalac. deportivas I.E. Alfredo Rodríguez (Omate)",               pim:857314,   dev:189774,  av:22.1},
+    {cod:"2649722", nom:"Adquisición ambientes preparación alimentos CAR Santa Fortunata",             pim:465887,   dev:9636,    av:2.1},
+    {cod:"2687548", nom:"Mobiliario ambientes complementarios 8 II.EE. Secundaria",                   pim:1542342,  dev:3270,    av:0.2},
+    {cod:"2698851", nom:"Adquisición banda sonora 18 II.EE. Secundaria nivel departamental",           pim:2018985,  dev:0,       av:0.0},
+    {cod:"2625790", nom:"Puente vehicular Camata sobre el río Tambo",                                  pim:29026,    dev:0,       av:0.0},
+    {cod:"2533679", nom:"Serv. educ. IEI N°225 Anexo de Cogri - Omate",                               pim:33906,    dev:0,       av:0.0},
+    {cod:"2630620", nom:"Transitabilidad vial Quebrada Ansamani - Ichuña",                             pim:20704,    dev:0,       av:0.0},
+    {cod:"2603221", nom:"Transitabilidad vial interurbana vía EMP. MO-108-MO-516 Ulucan de Coalaque", pim:1000000,  dev:0,       av:0.0},
+    {cod:"2627791", nom:"Atención salud básica P.S. Oyo Oyo - Ichuña",                                pim:160000,   dev:0,       av:0.0},
+    {cod:"2642495", nom:"Agua potable rural y alcantarillado Centro Pob. Aruntaya (San Cristóbal)",   pim:14000,    dev:0,       av:0.0},
+    {cod:"2624484", nom:"Servicio educ. secundaria I.E. Mariscal Domingo Nieto - Omate",               pim:1560000,  dev:0,       av:0.0},
+    {cod:"2694186", nom:"Auditorio y laboratorio I.E. Mariscal Ramón Castilla - Ichuña",               pim:40000,    dev:0,       av:0.0},
+    {cod:"2661807", nom:"Equipos fuentes energía solar - Gobierno Regional sede Moquegua",             pim:1300,     dev:0,       av:0.0},
+    {cod:"2683045", nom:"Cobertura instalac. deportivas I.E. Mariscal Andrés A. Cáceres (Ilo)",        pim:51800,    dev:0,       av:0.0},
+    {cod:"2670240", nom:"Servicio educ. primaria I.E. 43070 Distrito de Omate",                        pim:200000,   dev:0,       av:0.0},
+    {cod:"2671975", nom:"Serv. op. misionales Dirección Técnica Seguimiento Control y Vigilancia Ilo", pim:100000,   dev:0,       av:0.0},
+    {cod:"2674028", nom:"Producción pesquera recurso Tiburón Azul Asoc. Armadoras Bahías y Pescad. Sur",pim:94036,   dev:0,       av:0.0},
+    {cod:"2674030", nom:"Producción carne de res Asoc. Prod. en Cadenas Prod. Pecuaria Coalaque",      pim:40427,    dev:0,       av:0.0},
+    {cod:"2674031", nom:"Cadena productiva hamburguesas Asoc. Mujeres Prod. Innovadoras Puerto Ilo",  pim:178000,   dev:0,       av:0.0},
+    {cod:"2674032", nom:"Producción de tuna (Asoc. Sumaq Tunas de Lloque)",                            pim:22172,    dev:0,       av:0.0},
+    {cod:"2674054", nom:"Producción flores Asoc. Prod. Virgen del Carmen de Tumilaca",                 pim:17092,    dev:0,       av:0.0},
+    {cod:"2674061", nom:"Pesquería recurso pulpo Asoc. APACSUR Ilo",                                  pim:12022,    dev:0,       av:0.0},
+    {cod:"2674062", nom:"Servicios turísticos aventura AEO MOQUEGUA SRL",                              pim:345062,   dev:0,       av:0.0},
+    {cod:"2674064", nom:"Hospedaje y restaurante turístico Empresa Servicios Turísticos Marías SRL",  pim:250648,   dev:0,       av:0.0},
+    {cod:"2674065", nom:"Producción piezas metálicas maquinaria especializada Taller Mecánica Dinamic",pim:244127,  dev:0,       av:0.0},
+    {cod:"2674067", nom:"Producción pesquera recurso jurel Asoc. Armadores de Cerco Puerto Ilo",      pim:307113,   dev:0,       av:0.0},
+    {cod:"2674068", nom:"Extracción recursos hidrobiológicos bentonicos choro Asoc. Sembrando Futuro",pim:262875,   dev:0,       av:0.0},
+    {cod:"2674070", nom:"Área agrícola cultivo pitahaya Asoc. Cerrito Guardian Solajo",                pim:87246,    dev:0,       av:0.0},
+    {cod:"2674008", nom:"Producción palta manejo ecológico Asoc. Agroexportación Puquina",             pim:65711,    dev:0,       av:0.0},
+    {cod:"2674011", nom:"Crianza ganado vacuno Asoc. Sumaq Urpikuna de Coalaque",                      pim:28525,    dev:0,       av:0.0},
+    {cod:"2674012", nom:"Sub productos alpaca Asoc. Mujeres Emprendedoras Huanacamaya",                pim:18942,    dev:0,       av:0.0},
+    {cod:"2674015", nom:"Volumen lácteo áreas forrajeras genética raza Brown Swiss",                   pim:77649,    dev:0,       av:0.0},
+    {cod:"2674016", nom:"Producción estructuras metálicas AEO LTTS Group Perú SA",                    pim:135457,   dev:0,       av:0.0},
+    {cod:"2674023", nom:"Crianza cuyes Asoc. Emprendedoras Virgen Natividad de Exchaje",               pim:82730,    dev:0,       av:0.0},
+    {cod:"2674027", nom:"Producción huevos ecológicos Asoc. Mujeres Agroecológicas Sumac Tika Puquina",pim:43401,   dev:0,       av:0.0}
+  ]
+};
+</script>
+
+<!-- ══════════ SCRIPT ══════════ -->
+<script>
+Chart.register(ChartDataLabels);
+
+// PALETA
+const AZ1='#0D2B5E',AZ2='#1A4A9E',AZ3='#2E6FD4',AZP='#E8F0FB';
+const DOR='#C8A84B',DOO='#9A7A28';
+const TRK='#D0DAF0';
+const FUNC_PAL=['#0D2B5E','#1A4A9E','#2E6FD4','#C8A84B','#3A8FD4','#9A7A28',
+                '#4A5568','#38BDF8','#0EA5E9','#7C3AED','#059669','#D97706'];
+
+// HELPERS
+const fmtN = n => n===0?'S/ 0':'S/ '+Math.round(n).toLocaleString('es-PE');
+const fmtS = n => {
+  if(n>=1e9) return 'S/ '+(n/1e9).toFixed(1)+' B';
+  if(n>=1e6) return 'S/ '+(n/1e6).toFixed(1)+' mill.';
+  if(n>=1e3) return 'S/ '+(n/1e3).toFixed(0)+' mil';
+  return 'S/ '+n;
+};
+
+// MODOS
+function setModo(m){
+  const body=document.getElementById('bodyEl');
+  const btnF=document.getElementById('btnFunc');
+  const btnC=document.getElementById('btnCiud');
+  if(m==='ciud'){
+    body.classList.add('modo-ciudadano');
+    btnF.classList.remove('active'); btnC.classList.add('active');
+    document.getElementById('heroPct').textContent='16.1%';
+    document.getElementById('heroDesc').innerHTML='De cada <strong>S/ 100</strong> disponibles para la región, solo se han ejecutado <strong>S/ 16.10</strong>. Quedan S/ 739.5 millones por ejecutar en lo que resta del año.';
+    updateSemaforo();
+  } else {
+    body.classList.remove('modo-ciudadano');
+    btnF.classList.add('active'); btnC.classList.remove('active');
+    document.getElementById('heroDesc').innerHTML='Gobierno Regional Moquegua ejecutó <strong>S/ 141,734,146</strong> de un presupuesto disponible de <strong>S/ 881,204,642</strong>';
+  }
+}
+function updateSemaforo(){
+  const av=D.total.av;
+  const icon=document.getElementById('semIcon');
+  const big=document.getElementById('semBig');
+  const msg=document.getElementById('semMsg');
+  const fill=document.getElementById('semFill');
+  const meta=document.getElementById('semMeta');
+  const metaTxt=document.getElementById('semMetaTxt');
+  fill.style.width=Math.min(av,100)+'%';
+  if(av<15){
+    icon.textContent='🔴'; fill.style.background='#E53E3E';
+    big.innerHTML='<span style="color:#C53030">Ejecución baja</span>';
+    msg.textContent='El GR Moquegua ha ejecutado solo el '+av+'% del presupuesto disponible. Se requiere acelerar la inversión en los próximos meses para alcanzar las metas anuales.';
+  } else if(av<35){
+    icon.textContent='🟡'; fill.style.background='#D97706';
+    big.innerHTML='<span style="color:#92400E">Ejecución en proceso</span>';
+    msg.textContent='El GR Moquegua lleva un '+av+'% de ejecución. Va por debajo de la meta programada (25.2%). Se necesita acelerar para cumplir las metas del año.';
+  } else {
+    icon.textContent='🟢'; fill.style.background='#16A34A';
+    big.innerHTML='<span style="color:#15803D">Buena ejecución</span>';
+    msg.textContent='El GR Moquegua tiene un '+av+'% de avance, por encima de la meta programada. Buen ritmo de inversión.';
+  }
+  meta.textContent='Meta programada: 25.2%';
+  metaTxt.textContent='Avance actual: '+av+'% · Meta mensual: 25.2% · Brecha: '+(25.2-av).toFixed(1)+'% por recuperar';
+}
+
+// TABS
+const tabNames=['resumen','ranking','funciones','proyectos'];
+function showTab(name){
+  tabNames.forEach(t=>{
+    const el=document.getElementById('vista'+t.charAt(0).toUpperCase()+t.slice(1));
+    const btn=document.querySelector(`.tab-btn[onclick="showTab('${t}')"]`);
+    if(el){el.classList.toggle('active',t===name);el.style.display=t===name?'block':'none'}
+    if(btn)btn.classList.toggle('active',t===name);
+  });
+}
+
+function toggleDark(){
+  const dark=document.getElementById('bodyEl').classList.toggle('dark');
+  document.getElementById('darkBtn').innerHTML=dark?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>';
+}
+
+const mkGauge=(id,val)=>{
+  const v=Math.min(Math.max(+val,0),100);
+  return new Chart(document.getElementById(id),{
+    type:'doughnut',
+    data:{datasets:[{data:[v,100-v],backgroundColor:[AZ2,TRK],borderWidth:0,borderRadius:[5,0]}]},
+    options:{cutout:'78%',rotation:-90,circumference:180,
+      plugins:{legend:{display:false},tooltip:{enabled:false},datalabels:{display:false}},
+      animation:{animateRotate:true,duration:900}}
+  });
+};
+
+document.addEventListener('DOMContentLoaded',()=>{
+
+  // KPI
+  const t=D.total;
+  const vals=[t.pia,t.pim,t.cert,t.compMens,t.dev,t.girado];
+  vals.forEach((v,i)=>{
+    const ef=document.getElementById('kv'+i);
+    const ec=document.getElementById('kvc'+i);
+    if(ef)ef.textContent=fmtN(v);
+    if(ec)ec.textContent=fmtS(v);
+  });
+
+  // SEMAFORO INITIAL
+  updateSemaforo();
+
+  // ═══ RESUMEN ═══
+  // Top 5 funciones por PIM
+  const fTop5=[...D.funciones].sort((a,b)=>b.pim-a.pim).slice(0,5);
+  new Chart(document.getElementById('chartResFunc'),{
+    type:'bar',
+    data:{labels:fTop5.map(f=>f.nom.length>18?f.nom.substring(0,16)+'…':f.nom),
+      datasets:[
+        {label:'PIM',data:fTop5.map(f=>f.pim),backgroundColor:AZ2+'99',borderRadius:4,borderSkipped:false},
+        {label:'Devengado',data:fTop5.map(f=>f.dev),backgroundColor:DOR,borderRadius:4,borderSkipped:false}
+      ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'top',labels:{font:{size:10}}},
+        datalabels:{display:false},
+        tooltip:{callbacks:{label:c=>' '+fmtS(c.raw)}}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:9}}},
+        y:{beginAtZero:true,grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:9},callback:v=>fmtS(v)}}}
+    }
+  });
+
+  // Comparativa regiones vecinas (Arequipa, Tacna, Moquegua, Puno)
+  const vecinas=['Arequipa','Tacna','MOQUEGUA','Puno','Cusco'];
+  const vecData=D.ranking.filter(r=>vecinas.includes(r.n)).sort((a,b)=>b.av-a.av);
+  new Chart(document.getElementById('chartResComp'),{
+    type:'bar',
+    data:{labels:vecData.map(r=>r.n),
+      datasets:[{label:'Avance %',data:vecData.map(r=>r.av),
+        backgroundColor:vecData.map(r=>r.n==='MOQUEGUA'?DOR:AZ2+'99'),
+        borderRadius:6,borderSkipped:false}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        datalabels:{anchor:'end',align:'end',color:c=>vecData[c.dataIndex].n==='MOQUEGUA'?DOO:AZ1,
+          font:{size:11,weight:'700'},formatter:v=>v+'%'}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:10}}},
+        y:{beginAtZero:true,max:25,grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:10},callback:v=>v+'%'}}}
+    },plugins:[ChartDataLabels]
+  });
+
+  // ═══ RANKING ═══
+  // Donut
+  new Chart(document.getElementById('chartRkPie'),{
+    type:'doughnut',
+    data:{labels:['Devengado','Saldo PIM'],
+      datasets:[{data:[t.dev,t.pim-t.dev],backgroundColor:[AZ2,TRK],borderWidth:3,borderColor:'#fff'}]},
+    options:{cutout:'70%',plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},padding:8}},
+      tooltip:{callbacks:{label:c=>' '+fmtS(c.raw)}},datalabels:{display:false}}}
+  });
+
+  mkGauge('chartRkG1',16.1);
+  mkGauge('chartRkG2',25.2);
+
+  // Barras ranking
+  const rk=D.ranking;
+  const rkColors=rk.map(r=>r.n==='MOQUEGUA'?DOR:(rk.indexOf(r)<3?'#0D2B5E':AZ2));
+  new Chart(document.getElementById('chartRkBar'),{
+    type:'bar',
+    data:{labels:rk.map(r=>r.n),
+      datasets:[{label:'Avance %',data:rk.map(r=>r.av),backgroundColor:rkColors,borderRadius:4,borderSkipped:false}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        datalabels:{anchor:'end',align:'end',
+          color:c=>rkColors[c.dataIndex]===DOR?DOO:'#0D1B3E',
+          font:{size:9.5,weight:'700'},formatter:v=>v+'%'},
+        tooltip:{callbacks:{label:c=>{const r=rk[c.dataIndex];
+          return[' Avance: '+r.av+'%',' Devengado: '+fmtS(r.dev)];
+        }}}},
+      scales:{x:{beginAtZero:true,max:30,grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:9.5},callback:v=>v+'%'}},
+        y:{grid:{display:false},ticks:{font:{size:9.5},
+          color:c=>rk[c.index]?.n==='MOQUEGUA'?DOO:'#0D1B3E'}}}
+    },plugins:[ChartDataLabels]
+  });
+
+  // ═══ FUNCIONES ═══
+  const fSorted=[...D.funciones].sort((a,b)=>b.pim-a.pim);
+  const tPimF=fSorted.reduce((s,f)=>s+f.pim,0);
+
+  // Pie funciones - top 8 + otros
+  const fPie=fSorted.slice(0,8);
+  const fOtrosPim=fSorted.slice(8).reduce((s,f)=>s+f.pim,0);
+  const pieLbls=fPie.map(f=>f.nom.length>22?f.nom.substring(0,20)+'…':f.nom);
+  const pieData=fPie.map(f=>f.pim);
+  if(fOtrosPim>0){pieLbls.push('Otras funciones');pieData.push(fOtrosPim)}
+  new Chart(document.getElementById('chartFuncPie'),{
+    type:'pie',
+    data:{labels:pieLbls,datasets:[{data:pieData,backgroundColor:FUNC_PAL,borderWidth:3,borderColor:'#fff'}]},
+    options:{rotation:-90,plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:c=>' '+fmtS(c.raw)+' ('+((c.raw/tPimF)*100).toFixed(1)+'%)'}},
+      datalabels:{anchor:'end',align:'end',offset:5,
+        backgroundColor:'rgba(255,255,255,.88)',borderRadius:3,padding:{top:1,bottom:1,left:3,right:3},
+        color:c=>FUNC_PAL[c.dataIndex]||AZ1,font:{size:8.5,weight:'700'},
+        formatter:(val,c)=>{const pct=((val/tPimF)*100).toFixed(0);return pct+'%'},
+        clamp:true,clip:false,display:c=>(c.dataset.data[c.dataIndex]/tPimF)>0.025}
+    }},plugins:[ChartDataLabels]
+  });
+
+  // Leyenda funciones
+  const legEl=document.getElementById('funcLegend');
+  fPie.forEach((f,i)=>{
+    const d=document.createElement('div');d.className='fl-item';
+    d.innerHTML=`<div class="fl-dot" style="background:${FUNC_PAL[i]}"></div>
+      <span><strong>${f.nom}</strong> — ${fmtS(f.pim)} · <b>${f.av}%</b></span>`;
+    legEl.appendChild(d);
+  });
+
+  // Barras funciones - ordenadas por avance
+  const fBarSorted=[...D.funciones].sort((a,b)=>b.av-a.av);
+  new Chart(document.getElementById('chartFuncBar'),{
+    type:'bar',
+    data:{labels:fBarSorted.map(f=>f.nom.length>24?f.nom.substring(0,22)+'…':f.nom),
+      datasets:[{label:'Avance %',data:fBarSorted.map(f=>f.av),
+        backgroundColor:fBarSorted.map(f=>f.av>=25?'#16A34A':f.av>=15?AZ2:f.av>=8?DOR:'#E53E3E'),
+        borderRadius:5,borderSkipped:false}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        datalabels:{anchor:'end',align:'end',color:AZ1,font:{size:9.5,weight:'700'},formatter:v=>v+'%'}},
+      scales:{x:{beginAtZero:true,grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:9.5},callback:v=>v+'%'}},
+        y:{grid:{display:false},ticks:{font:{size:9.5}}}}
+    },plugins:[ChartDataLabels]
+  });
+
+  mkGauge('chartFuncGauge',16.1);
+
+  // Tabla funciones
+  const fbody=document.getElementById('bodyFunciones');
+  [...D.funciones].sort((a,b)=>b.av-a.av).forEach((f,i)=>{
+    const bc=f.av>=25?'bg':f.av>=15?'by':f.av>=8?'br':'b0';
+    const fc=f.av>=25?'#16A34A':f.av>=15?AZ2:f.av>=8?DOR:'#E53E3E';
+    const w=Math.min(f.av,100);
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="color:var(--gtxt);text-align:center">${i+1}</td>
+      <td><strong>${f.cod}</strong> — ${f.nom}</td>
+      <td class="func-only" style="white-space:nowrap;font-weight:700">${fmtN(f.pia)}</td>
+      <td style="white-space:nowrap;font-weight:700">${fmtN(f.pim)}</td>
+      <td style="white-space:nowrap;font-weight:700">${fmtN(f.dev)}</td>
+      <td><span class="badge ${bc}">${f.av}%</span></td>
+      <td><div class="pbar-wrap" style="min-width:60px"><div class="pbar-fill" style="width:${w}%;background:${fc}"></div></div></td>`;
+    fbody.appendChild(tr);
+  });
+
+  // ═══ PROYECTOS ═══
+  // Eliminar duplicados por código
+  const pUniq=[];const codes=new Set();
+  D.proyectos.forEach(p=>{if(!codes.has(p.cod)){codes.add(p.cod);pUniq.push(p)}});
+  const pSorted=[...pUniq].sort((a,b)=>b.av-a.av);
+
+  const tPimP=pUniq.reduce((s,p)=>s+p.pim,0);
+  const tDevP=pUniq.reduce((s,p)=>s+p.dev,0);
+  const avP=(tPimP>0?(tDevP/tPimP*100):0).toFixed(1);
+  document.getElementById('proyGV').textContent=avP+'%';
+  mkGauge('chartProyGauge',parseFloat(avP));
+
+  // Pie proyectos - top 10 por devengado
+  const pConDev=[...pUniq].filter(p=>p.dev>0).sort((a,b)=>b.dev-a.dev);
+  const pTop10=pConDev.slice(0,10);
+  const pOtrosDev=pConDev.slice(10).reduce((s,p)=>s+p.dev,0);
+  const pPieLbls=pTop10.map(p=>p.nom.length>30?p.nom.substring(0,28)+'…':p.nom);
+  const pPieData=pTop10.map(p=>p.dev);
+  if(pOtrosDev>0){pPieLbls.push('Otros proyectos');pPieData.push(pOtrosDev)}
+  new Chart(document.getElementById('chartProyPie'),{
+    type:'pie',
+    data:{labels:pPieLbls,datasets:[{data:pPieData,backgroundColor:FUNC_PAL,borderWidth:3,borderColor:'#fff'}]},
+    options:{rotation:-90,plugins:{
+      legend:{display:true,position:'bottom',labels:{font:{size:9},padding:4,boxWidth:10}},
+      tooltip:{callbacks:{label:c=>' '+fmtS(c.raw)}},
+      datalabels:{display:c=>(c.dataset.data[c.dataIndex]/tDevP)>0.04,
+        anchor:'end',align:'end',offset:4,
+        backgroundColor:'rgba(255,255,255,.85)',borderRadius:3,padding:{top:1,bottom:1,left:3,right:3},
+        color:c=>FUNC_PAL[c.dataIndex]||AZ1,font:{size:8,weight:'700'},
+        formatter:val=>((val/tDevP)*100).toFixed(0)+'%',clamp:true,clip:false}
+    }},plugins:[ChartDataLabels]
+  });
+
+  // Barras top 15 por avance (con devengado > 0)
+  const pTopAv=pConDev.filter(p=>p.av>0).slice(0,15);
+  new Chart(document.getElementById('chartProyBar'),{
+    type:'bar',
+    data:{labels:pTopAv.map(p=>'#'+p.cod),
+      datasets:[{label:'Avance %',data:pTopAv.map(p=>p.av),
+        backgroundColor:pTopAv.map(p=>p.av>=50?'#16A34A':p.av>=25?AZ2:DOR),
+        borderRadius:5,borderSkipped:false}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        datalabels:{anchor:'end',align:'end',color:AZ1,font:{size:9.5,weight:'700'},formatter:v=>v+'%'},
+        tooltip:{callbacks:{label:c=>{const p=pTopAv[c.dataIndex];
+          return[' '+p.nom.substring(0,50),' Avance: '+p.av+'%',' Dev: '+fmtN(p.dev)];
+        }}}},
+      scales:{x:{beginAtZero:true,grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:9.5},callback:v=>v+'%'}},
+        y:{grid:{display:false},ticks:{font:{size:9.5}}}}
+    },plugins:[ChartDataLabels]
+  });
+
+  // Tabla proyectos
+  let proyFiltrados=[...pSorted];
+  function renderTablaProyectos(data){
+    const tbody=document.getElementById('bodyProyectos');
+    tbody.innerHTML='';
+    document.getElementById('contProyectos').textContent=data.length+' proyectos';
+    data.forEach((p,i)=>{
+      const bc=p.av>=50?'bg':p.av>=20?'by':p.av>0?'br':'b0';
+      const fc=p.av>=50?'#16A34A':p.av>=20?AZ2:p.av>0?DOR:TRK;
+      const w=Math.min(p.av,100);
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td style="color:var(--gtxt);text-align:center;font-size:10px">${i+1}</td>
+        <td style="white-space:nowrap;font-size:10px;color:var(--gtxt)">${p.cod}</td>
+        <td style="max-width:250px;word-break:break-word;font-weight:600">${p.nom}</td>
+        <td style="white-space:nowrap;font-weight:700">${fmtN(p.pim)}</td>
+        <td style="white-space:nowrap;font-weight:700">${fmtN(p.dev)}</td>
+        <td><span class="badge ${bc}">${p.av}%</span></td>
+        <td><div class="pbar-wrap" style="min-width:60px"><div class="pbar-fill" style="width:${w}%;background:${fc}"></div></div></td>`;
+      tbody.appendChild(tr);
+    });
+  }
+  renderTablaProyectos(proyFiltrados);
+
+  window.filtrarProyectos=function(){
+    const q=document.getElementById('srchProy').value.toLowerCase();
+    proyFiltrados=pSorted.filter(p=>p.nom.toLowerCase().includes(q)||p.cod.includes(q));
+    renderTablaProyectos(proyFiltrados);
+  };
+
+  // Init
+  showTab('resumen');
+  setModo('func');
+
+}); // DOMContentLoaded
+</script>
+</body>
+</html>
