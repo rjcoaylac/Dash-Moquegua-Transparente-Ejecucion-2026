@@ -256,34 +256,105 @@ tbody td{padding:7px 10px;vertical-align:middle;font-size:11px}
 /* OCULTAR en modo ciudadano elementos técnicos */
 body.modo-ciudadano .func-only{display:none!important}
 
+/* ═══ MODAL GRÁFICO (zoom como Power BI) ═══ */
+.chart-zoom-btn{
+  position:absolute;top:6px;right:6px;
+  background:rgba(13,43,94,.08);border:1px solid rgba(13,43,94,.15);
+  border-radius:6px;padding:3px 7px;font-size:10px;color:var(--gtxt);
+  cursor:pointer;opacity:0;transition:opacity .2s;z-index:10;
+  font-family:'DM Sans',sans-serif;
+}
+.card:hover .chart-zoom-btn{opacity:1}
+.chart-zoom-btn:hover{background:var(--az2);color:#fff;border-color:var(--az2)}
+.chart-wrap-zoom{position:relative}
+
+/* Overlay modal */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(5,15,35,.75);backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.open{display:flex}
+.modal-box{
+  background:var(--blanco);border-radius:18px;
+  padding:20px 20px 16px;width:100%;max-width:900px;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+  display:flex;flex-direction:column;gap:12px;
+  max-height:90vh;
+}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:2px solid var(--az-pal);padding-bottom:10px;
+}
+.modal-title{
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
+  color:var(--az1);letter-spacing:.5px;text-transform:uppercase;
+}
+.modal-close{
+  background:none;border:none;cursor:pointer;
+  font-size:20px;color:var(--gtxt);line-height:1;padding:2px 6px;
+  border-radius:6px;transition:background .15s;
+}
+.modal-close:hover{background:var(--az-pal);color:var(--az1)}
+.modal-canvas-wrap{position:relative;flex:1;min-height:300px;max-height:65vh}
+.modal-canvas-wrap canvas{width:100%!important;height:100%!important}
+body.dark .modal-box{background:#162035;border:1px solid #1E3052}
+body.dark .modal-title{color:#C8E0FF}
+body.dark .modal-header{border-bottom-color:#1E3052}
+body.dark .modal-close{color:#8BA8C8}
+body.dark .modal-close:hover{background:#0F1E38;color:#E0ECFF}
+
 /* ═══ DARK MODE ═══ */
 body.dark{
   --blanco:#162035;--bg:#0C1424;--gris:#1E3052;
-  --gtxt:#8BA8C8;--txt:#E0ECFF;--az-pal:#0F1E38;
+  --gtxt:#A8C4E0;--txt:#E8F4FF;--az-pal:#0F1E38;
   --sombra:0 2px 16px rgba(0,0,0,.5);
 }
 body.dark .card{background:#162035;border:1px solid #1E3052}
 body.dark .kpi-card{background:#162035;border:1px solid #1E3052}
 body.dark .kpi-val{color:#7DC8F8}
+body.dark .kpi-lbl-func,
+body.dark .kpi-lbl-ciud{color:#A8C4E0}
 body.dark .kpi-card.hl .kpi-val{color:#93C5FD}
-body.dark .card-title{color:#C8E0FF;border-bottom-color:#1E3052}
-body.dark .seg-label{background:#0F1E38;border-color:#2E5BA8;color:#C8E0FF}
+body.dark .card-title{color:#D0E8FF;border-bottom-color:#1E3052}
+body.dark .card-title i{color:#C8A84B}
+body.dark .seg-label{background:#0F1E38;border-color:#2E5BA8;color:#D0E8FF}
 body.dark .g-val{color:#7DC8F8}
+body.dark .g-sub{color:#A8C4E0}
+body.dark .gauge-range span{color:#A8C4E0}
 body.dark .puesto-num{color:#7DC8F8}
+body.dark .puesto-lbl{color:#A8C4E0}
+body.dark .puesto-of{color:#A8C4E0}
+body.dark .puesto-mun{color:#8BA8C8}
 body.dark .puesto-badge{background:linear-gradient(135deg,#0F1E38,#162035);border-color:#2E5BA8}
 body.dark thead tr{background:#071224}
+body.dark thead th{color:#D0E8FF}
 body.dark tbody tr:hover{background:#0F1E38}
 body.dark tbody td{color:#C8E0FF}
-body.dark .tbl-search{background:#162035;border-color:#1E3052;color:#E0ECFF}
+body.dark .nom-short{color:#E8F4FF}
+body.dark .nom-code{color:#A8C4E0}
+body.dark .tbl-search{background:#162035;border-color:#1E3052;color:#E8F4FF}
+body.dark .tbl-search::placeholder{color:#6A8CAA}
+body.dark #contProyectos{color:#A8C4E0}
 body.dark .piv-card{background:#162035;border:1px solid #1E3052}
 body.dark .piv-card .pv{color:#7DC8F8}
+body.dark .piv-card .pl{color:#A8C4E0}
+body.dark .piv-card .ps{color:#8BA8C8}
 body.dark .res-hero{background:linear-gradient(135deg,#071A3E,#0D2B5E)}
+body.dark .res-hero .rh-txt .label{color:rgba(255,255,255,.75)}
+body.dark .res-hero .rh-txt .note{color:rgba(255,255,255,.55)}
 body.dark .semaforo-card{background:#162035}
 body.dark .sem-txt .big{color:#7DC8F8}
+body.dark .sem-txt .msg{color:#A8C4E0}
+body.dark .sem-bar-lbls{color:#A8C4E0}
+body.dark .sem-meta{color:#7DC8F8}
+body.dark .fl-item{color:#C8E0FF}
 body.dark .bg{background:#0C2E1C;color:#6EE7A8}
 body.dark .by{background:#2D1E00;color:#FCD34D}
 body.dark .br{background:#2D0A0A;color:#FCA5A5}
-body.dark .b0{background:#1E2A3A;color:#94A3B8}
+body.dark .b0{background:#1E2A3A;color:#A8C4E0}
+body.dark .chart-zoom-btn{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15);color:#A8C4E0}
+body.dark footer{background:#071224;color:rgba(255,255,255,.5)}
 
 /* ═══ ANIMACIÓN ═══ */
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -754,11 +825,26 @@ footer b{color:var(--dor)}
 
 </main>
 
+<!-- ══════════ MODAL ZOOM GRÁFICO ══════════ -->
+<div class="modal-overlay" id="chartModal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">Gráfico</span>
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div class="modal-canvas-wrap">
+      <canvas id="modalCanvas"></canvas>
+    </div>
+  </div>
+</div>
+
 <footer>
   Dashboard de <b>Transparencia Ciudadana</b> &nbsp;·&nbsp;
   Datos: <b>MEF – Consulta Amigable</b> &nbsp;·&nbsp;
   Gobierno Regional de Moquegua &nbsp;·&nbsp;
   Corte: <b>04 Marzo 2026</b>
+  <br>
+  <span style="font-size:10px;opacity:.5">Desarrollado por René J. Coayla &nbsp;·&nbsp; +51 961 792 495</span>
 </footer>
 
 <!-- ══════════ DATA ══════════ -->
@@ -1277,6 +1363,92 @@ document.addEventListener('DOMContentLoaded',()=>{
   // Init
   showTab('resumen');
   setModo('func');
+
+  // ═══ ZOOM DE GRÁFICOS (tipo Power BI) ═══
+  // Mapa: canvasId → título del gráfico
+  const chartTitles = {
+    chartResFunc:  'Top 5 Funciones por PIM',
+    chartResComp:  'Posición vs. Regiones Vecinas',
+    chartRkPie:    'Devengado / PIM',
+    chartRkBar:    'Ranking Avance % – 26 Gobiernos Regionales',
+    chartFuncPie:  'Distribución PIM por Función',
+    chartFuncBar:  'Avance % por Función',
+    chartProyPie:  'Top Proyectos por Devengado',
+    chartProyBar:  'Top 15 Proyectos por Avance %',
+  };
+  // Gauges no se amplifan (son decorativos)
+  const skipZoom = new Set(['chartRkG1','chartRkG2','chartFuncGauge','chartProyGauge']);
+
+  let modalChartInstance = null;
+
+  Object.keys(chartTitles).forEach(id => {
+    const canvas = document.getElementById(id);
+    if (!canvas) return;
+    // Contenedor relativo para el botón
+    const wrap = canvas.closest('.card') || canvas.parentElement;
+    if (!wrap) return;
+    wrap.style.position = 'relative';
+
+    const btn = document.createElement('button');
+    btn.className = 'chart-zoom-btn';
+    btn.innerHTML = '<i class="fas fa-expand-alt"></i> Ampliar';
+    btn.title = 'Ver en pantalla completa';
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      openChartModal(id, chartTitles[id]);
+    };
+    wrap.appendChild(btn);
+
+    // También abrir al hacer doble click sobre el canvas
+    canvas.style.cursor = 'zoom-in';
+    canvas.addEventListener('dblclick', () => openChartModal(id, chartTitles[id]));
+  });
+
+  function openChartModal(sourceId, title) {
+    const sourceCanvas = document.getElementById(sourceId);
+    if (!sourceCanvas) return;
+    const sourceChart = Chart.getChart(sourceCanvas);
+    if (!sourceChart) return;
+
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('chartModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Destruir instancia previa si existe
+    if (modalChartInstance) { modalChartInstance.destroy(); modalChartInstance = null; }
+
+    // Clonar config del chart original
+    const cfg = JSON.parse(JSON.stringify({
+      type: sourceChart.config.type,
+      data: sourceChart.config.data,
+      options: sourceChart.config.options,
+    }));
+
+    // En el modal ajustar tamaños de fuente para mejor legibilidad
+    if (cfg.options?.plugins?.datalabels) {
+      cfg.options.plugins.datalabels.font = { size: 12, weight: '700' };
+    }
+    if (cfg.options?.scales?.x?.ticks) cfg.options.scales.x.ticks.font = { size: 11 };
+    if (cfg.options?.scales?.y?.ticks) cfg.options.scales.y.ticks.font = { size: 11 };
+    cfg.options = cfg.options || {};
+    cfg.options.responsive = true;
+    cfg.options.maintainAspectRatio = false;
+    cfg.options.animation = false;
+
+    const modalCanvas = document.getElementById('modalCanvas');
+    modalChartInstance = new Chart(modalCanvas, cfg);
+  }
+
+  window.closeModal = function(e) {
+    if (e.target === document.getElementById('chartModal')) closeModalBtn();
+  };
+  window.closeModalBtn = function() {
+    document.getElementById('chartModal').classList.remove('open');
+    document.body.style.overflow = '';
+    if (modalChartInstance) { modalChartInstance.destroy(); modalChartInstance = null; }
+  };
+  // Cerrar con ESC
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
 
 }); // DOMContentLoaded
 </script>
